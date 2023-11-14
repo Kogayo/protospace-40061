@@ -2,7 +2,7 @@ class PrototypesController < ApplicationController
 
   before_action :authenticate_user!, except: [:index]
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :move_to_edit, except: [:index, :show]
+  before_action :move_to_edit, except: [:index, :new, :create, :destroy, :edit, :show]
   
 
   def index
