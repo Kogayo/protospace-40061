@@ -9,10 +9,10 @@ class PrototypesController < ApplicationController
     @prototypes = Prototype.all
   end
 
-  def update
-    current_user.update(user_params)
+  //#def update
+   //# current_user.update(user_params)
 
-  end
+   //#end
 
   def new
     @prototype = Prototype.new
@@ -41,7 +41,7 @@ end
 def update
   @prototype = Prototype.find(params[:id])
   if @prototype.update(prototype_params)
-    redirect_to prototype_path(@prototype)
+    redirect_to root_path
   else
     render :edit
   end 
@@ -67,8 +67,8 @@ end
   end
 
   def move_to_edit
-    unless user_signed_in? && @prototype_user == current_user
-      redirect_to root_path
+    unless user_signed_in? 
+      redirect_to action: :edit
     end
   end
    

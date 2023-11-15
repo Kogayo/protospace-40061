@@ -6,10 +6,12 @@
       </p>
       <%= link_to "by #{current_user.name}", user_path(current_user), class: :prototype_user %>
       <%# プロトタイプの投稿者とログインしているユーザーが同じであれば以下を表示する %>
+      <% if user_signed_in? && @prototype.user == current_user %>
         <div class="prototype__manage">
           <%= link_to "編集する", edit_prototype_path(@prototype), class: :prototype__btn %>
           <%= link_to "削除する", prototype_path(@prototype), method: :delete, data: { turbo_method: :delete }, class: :prototype__btn %>
         </div>
+        <% end %>
       <%# // プロトタイプの投稿者とログインしているユーザーが同じであれば上記を表示する %>
       <div class="prototype__image">
         <%= image_tag @prototype.image %>
