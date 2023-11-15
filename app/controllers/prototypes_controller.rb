@@ -68,7 +68,6 @@ end
 
   def move_to_edit
     @prototype = Prototype.find(params[:id])
-    # ログイン者と投稿者が同じでは無ければ、TOpページに遷移させる 
     if current_user.id != @prototype.user_id
       redirect_to root_path
     end

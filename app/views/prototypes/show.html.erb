@@ -6,7 +6,10 @@
       </p>
       <% if user_signed_in? %>
       <%= link_to "by #{@prototype.user.name}", user_path(@prototype.user), class: :prototype_user %>
-      <% end %>
+       <% else %>
+    <p>by<%= @prototype.user.name %></p>
+  <% end %>
+   
       <%# プロトタイプの投稿者とログインしているユーザーが同じであれば以下を表示する %>
       <% if user_signed_in? && @prototype.user == current_user %>
         <div class="prototype__manage">
@@ -46,9 +49,6 @@
            <% end %> 
            <% else %>
   <!-- ログインしていない場合のコンテンツ -->
-  <p class="prototype__hedding">
-    <%= @prototype.title %>
-    </p>
           <% end %>
          
         <ul class="comments_lists">
