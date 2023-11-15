@@ -1,8 +1,8 @@
 class PrototypesController < ApplicationController
 
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :move_to_edit, except: [:index, :new, :create, :destroy, :edit, :show]
+  before_action :move_to_edit, only: [:edit]
   
 
   def index
@@ -34,14 +34,14 @@ class PrototypesController < ApplicationController
   end
   
 def edit
-  @prototype = Prototype.find(params[:id])
+ 
 
 end
 
 def update
   @prototype = Prototype.find(params[:id])
   if @prototype.update(prototype_params)
-    redirect_to root_path
+    redirect_to prototype_path(@prototype)
   else
     render :edit
   end 
@@ -67,9 +67,12 @@ end
   end
 
   def move_to_edit
-    unless user_signed_in? 
-      redirect_to action: :edit
+    @prototype = Prototype.find(params[:id])
+    # ログイン者と投稿者が同じでは無ければ、TOpページに遷移させる 
+    if current_user.id != @prototype.user_id
+      redirect_to root_path
     end
+
   end
    
   
